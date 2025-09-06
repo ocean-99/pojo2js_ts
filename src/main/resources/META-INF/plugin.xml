@@ -1,0 +1,81 @@
+<idea-plugin>
+    <id>com.yourname.pojo2js_ts</id>
+    <name>POJO to JSON/TypeScript</name>
+    <vendor email="your-email@example.com" url="https://github.com/yourname/pojo2js_ts">Your Name</vendor>
+
+    <description><![CDATA[
+    A plugin to generate JSON examples and TypeScript interface definitions from Java POJO classes.
+    
+    <h3>Features:</h3>
+    <ul>
+        <li>Right-click on Java classes to generate JSON with random values</li>
+        <li>Generate TypeScript interfaces from Java classes</li>
+        <li>Configurable type mappings and package-level settings</li>
+        <li>Results automatically copied to clipboard</li>
+        <li>Support for complex nested objects and collections</li>
+        <li>Circular reference detection</li>
+    </ul>
+    
+    <h3>Usage:</h3>
+    <ol>
+        <li>Right-click on a Java class file in Project View or Editor tab</li>
+        <li>Select "Generate JSON" or "Generate TypeScript Interface"</li>
+        <li>The generated content will be copied to your clipboard</li>
+        <li>Configure settings in File -> Settings -> Tools -> POJO to JSON/TS</li>
+    </ol>
+    ]]></description>
+
+    <change-notes><![CDATA[
+    <h3>1.0.0</h3>
+    <ul>
+        <li>Initial release</li>
+        <li>Generate JSON from Java POJO with random values</li>
+        <li>Generate TypeScript interfaces from Java classes</li>
+        <li>Basic configuration support</li>
+        <li>Right-click context menu integration</li>
+    </ul>
+    ]]></change-notes>
+
+    <!-- Product and plugin compatibility -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <!-- Plugin's application components -->
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Settings page -->
+        <applicationConfigurable 
+            instance="com.yourname.pojo2jsts.ui.SettingsConfigurable"
+            id="com.yourname.pojo2jsts.settings"
+            displayName="POJO to JSON/TS"/>
+    </extensions>
+
+    <!-- Plugin's actions -->
+    <actions>
+        <!-- Context menu group -->
+        <group id="pojo2js_ts.ContextMenu" text="Generate" description="Generate JSON/TypeScript from Java classes" popup="true">
+            <!-- Add to project view context menu -->
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="$Copy"/>
+            <!-- Add to editor tab context menu -->
+            <add-to-group group-id="EditorTabPopupMenu" anchor="after" relative-to-action="$Copy"/>
+            
+            <!-- Actions -->
+            <action 
+                id="pojo2js_ts.GenerateJson" 
+                class="com.yourname.pojo2jsts.actions.GenerateJsonAction" 
+                text="Generate JSON Example"
+                description="Generate JSON example with random values from Java class">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt J"/>
+            </action>
+            
+            <action 
+                id="pojo2js_ts.GenerateTS" 
+                class="com.yourname.pojo2jsts.actions.GenerateTypeScriptAction" 
+                text="Generate TypeScript Interface"
+                description="Generate TypeScript interface from Java class">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt T"/>
+            </action>
+            
+            <separator/>
+        </group>
+    </actions>
+</idea-plugin>

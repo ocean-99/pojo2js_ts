@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '1.16.1'
+}
+
+group 'com.yourname'
+version '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testImplementation 'org.mockito:mockito-core:5.3.1'
+}
+
+intellij {
+    version = '2023.1'
+    type = 'IC'
+    plugins = ['java']
+}
+
+patchPluginXml {
+    sinceBuild = '231'
+    untilBuild = '241.*'
+    
+    pluginDescription = """
+    gradle.properties plugin to generate JSON examples and TypeScript interface definitions from Java POJO classes.
+    
+    Features:
+    - Right-click on Java classes to generate JSON with random values
+    - Generate TypeScript interfaces from Java classes
+    - Configurable type mappings and package-level settings
+    - Results automatically copied to clipboard
+    """
+    
+    changeNotes = """
+    <h3>1.0.0</h3>
+    <ul>
+        <li>Initial release</li>
+        <li>Generate JSON from Java POJO</li>
+        <li>Generate TypeScript interfaces from Java classes</li>
+        <li>Basic configuration support</li>
+    </ul>
+    """
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+tasks.named('signPlugin') {
+    enabled = false
+}
+publishPlugin {
+    token = System.getenv("ORG_GRADLE_PROJECT_intellijPublishToken")
+}
+// Ensure UTF-8 encoding
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
