@@ -1,0 +1,38 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# Gradle
+.gradle/
+build/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Maven (如果用 Maven 构建插件的话)
+target/
+
+# Logs
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# JetBrains run configs
+.idea/runConfigurations/
+
+# IntelliJ Plugin sandbox 环境
+.idea/shelf/
+.idea/modules/
+.idea/libraries/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries/
+
+# IntelliJ Plugin 构建时生成的 sandbox 目录
+sandbox/
+
+# Generated files from IntelliJ Plugin DevKit
+*.zip
+*.jar
